@@ -15,12 +15,18 @@ def main():
     col_logo, col_title = st.columns([1, 5])  # 로고 1, 타이틀 5 비율
 
     with col_logo:
-        st.image("images/hospital_logo.png", width=50)  # 병원 로고 (크기 조정 가능)
+        st.markdown(
+            "<div style='display: flex; align-items: center; height: 100%; margin-top: 10px;'>"
+            "<img src='images/hospital_logo.png' width='50' style='vertical-align: middle;'>"
+            "</div>",
+            unsafe_allow_html=True
+        )
 
     with col_title:
         st.markdown("<h1 style='display: flex; align-items: center;'>서울 탈모병원</h1>", unsafe_allow_html=True)
 
     st.subheader("AI 기반 탈모 진단 & 맞춤 관리 가이드")
+
 
 
     # 메인화면 구성
