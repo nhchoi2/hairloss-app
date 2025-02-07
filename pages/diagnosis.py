@@ -12,8 +12,11 @@ if not os.path.exists("data"):
     os.makedirs("data")
 
 def save_to_history(user_id, gender, age, test_date, diagnosis, user_notes):
-    """입력된 데이터를 CSV 파일에 저장 (pd.concat() 방식 적용)"""
+    """입력된 데이터를 CSV 파일에 저장 (디버깅 로그 추가)"""
     file_path = "data/hair_loss_records.csv"
+
+    # 디버깅 로그 기록
+    st.write(f"✅ 저장할 데이터: {user_id}, {gender}, {age}, {test_date}, {diagnosis}, {user_notes}")
 
     # 새로운 데이터 생성
     new_data = pd.DataFrame([{
@@ -28,13 +31,23 @@ def save_to_history(user_id, gender, age, test_date, diagnosis, user_notes):
     # 기존 파일이 있으면 로드 후 데이터 추가, 없으면 새로 생성
     if os.path.exists(file_path):
         df = pd.read_csv(file_path)
+        st.write("📂 기존 CSV 파일 로드 성공, 기존 데이터:")
+        st.write(df.head())  # 기존 데이터 확인
         df = pd.concat([df, new_data], ignore_index=True)  # 데이터 추가
     else:
         df = new_data  # 첫 데이터 저장
 
+    # 파일 저장 확인 로그 출력
+    st.write("📂 저장할 데이터프레임 (최종):", df)
+
     # CSV 파일로 저장
     df.to_csv(file_path, index=False)
     st.success("✅ 검사 결과가 CSV 파일에 저장되었습니다!")
+
+    # 저장 후 파일 확인
+    with open(file_path, "r") as file:
+        st.text_area("📂 저장된 CSV 파일 내용", file.read(), height=300)
+
 
 def main():
     st.title("AI 탈모 진단")
