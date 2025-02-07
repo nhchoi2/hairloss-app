@@ -80,7 +80,7 @@ def main():
             gender = st.radio("성별", ["남", "여"])
             age = st.number_input("나이", min_value=1, max_value=100, step=1)
             test_date = st.text_input("검사일자", datetime.today().strftime('%Y-%m-%d'), disabled=True)
-            user_notes = st.text_area("사용자 입력 추가 정보 (진료예약일자 및 연락처처)")
+            user_notes = st.text_area("사용자 입력 추가 정보 (진료예약일자 및 연락처)")
             
             # 폼 제출 버튼
             submit_button = st.form_submit_button("내상태 저장 및 진료접수")
