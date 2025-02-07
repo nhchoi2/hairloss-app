@@ -9,7 +9,7 @@ def main():
         st.image("images/sidebar_bg.png", caption="서울탈모병원원", width=300)
         st.markdown("**병원 연락처:**")
         st.markdown("전화: 02-123-4567")
-        st.markdown("[병원 블로그 바로가기](https://https://boohoday.com/)")
+        st.markdown("[병원 블로그 바로가기](https://boohoday.com/)")
 
     # 로고와 병원명을 한 줄로 정렬
     col_logo, col_title = st.columns([1, 5])  # 로고 1, 타이틀 5 비율
