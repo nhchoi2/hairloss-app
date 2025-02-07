@@ -17,7 +17,7 @@ def load_history():
 
 def main():
     st.title("📊 탈모 검사 내역 확인")
-    st.subheader("👤 이름과 성별, 나이를 선택해 주세요")
+    st.subheader("👤 이름과 성별, 나이를 입력해 주세요")
     
     df = load_history()
     
@@ -25,10 +25,10 @@ def main():
         st.warning("아직 저장된 검사 내역이 없습니다.")
         return
     
-    # 유저 ID, 성별, 나이 선택 필터
-    user_id = st.selectbox("User ID 선택", df["User ID"].unique())
-    gender = st.radio("성별 선택", df[df["User ID"] == user_id]["성별"].unique())
-    age = st.selectbox("나이 선택", df[df["User ID"] == user_id]["나이"].unique())
+    # 유저 정보 입력 필터
+    user_id = st.text_input("이름을 입력하세요")
+    gender = st.radio("성별 선택", ["남", "여"])
+    age = st.number_input("나이 입력", min_value=1, max_value=100, step=1)
     
     # 조건에 맞는 데이터 10개만 불러오기
     filtered_df = df[(df["User ID"] == user_id) & (df["성별"] == gender) & (df["나이"] == age)]
