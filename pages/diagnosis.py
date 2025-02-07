@@ -84,7 +84,7 @@ def main():
                 st.write("✅ 저장 버튼이 클릭되었습니다!")  # 버튼 클릭 확인
                 save_to_history(user_id, gender, age, test_date, max_label, user_notes)
                 st.success("✅ 검사 결과가 저장되었습니다!")
-                st.experimental_rerun()
+                st.rerun()  # ✅ 최신 Streamlit에서는 st.experimental_rerun() 대신 st.rerun() 사용
 
 
 
