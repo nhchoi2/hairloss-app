@@ -76,14 +76,14 @@ def main():
 
         # 검사 결과 저장 폼을 항상 표시
         with st.form("user_input_form"):
-            user_id = st.text_input("User ID", "")
+            user_id = st.text_input("성명명", "")
             gender = st.radio("성별", ["남", "여"])
             age = st.number_input("나이", min_value=1, max_value=100, step=1)
             test_date = st.text_input("검사일자", datetime.today().strftime('%Y-%m-%d'), disabled=True)
-            user_notes = st.text_area("사용자 입력 추가 정보 (선택)")
+            user_notes = st.text_area("사용자 입력 추가 정보 (진료예약일자 및 연락처처)")
             
             # 폼 제출 버튼
-            submit_button = st.form_submit_button("저장")
+            submit_button = st.form_submit_button("내상태 저장 및 진료접수")
 
             if submit_button:
                 st.write("✅ 저장 버튼이 클릭되었습니다!")  # 버튼 클릭 확인
