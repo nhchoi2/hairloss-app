@@ -16,23 +16,28 @@ def save_to_history(user_id, gender, age, test_date, diagnosis, user_notes):
     """입력된 데이터를 CSV 파일에 저장"""
     file_path = "data/hair_loss_records.csv"
 
-    # 저장하려는 데이터 확인
+    # 디버깅 로그 기록
     st.write(f"✅ 저장할 데이터: {user_id}, {gender}, {age}, {test_date}, {diagnosis}, {user_notes}")
+
+    # 데이터 폴더가 없으면 생성
+    if not os.path.exists("data"):
+        os.makedirs("data")
+        st.write("📂 'data/' 폴더가 생성되었습니다.")
 
     # CSV 파일이 존재하는지 확인 후 로드
     try:
         df = pd.read_csv(file_path)
         st.write("📂 기존 CSV 파일 로드 성공")
-    except FileNotFoundError:
+    except (FileNotFoundError, pd.errors.EmptyDataError):
         df = pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
-        st.write("⚠ CSV 파일이 없어서 새로 생성합니다.")
+        st.write("⚠ CSV 파일이 없거나 비어 있어 새로 생성합니다.")
 
     # 새 데이터 추가
     new_data = pd.DataFrame([[user_id, gender, age, test_date, diagnosis, user_notes]],
                             columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
     df = pd.concat([df, new_data], ignore_index=True)
     
-    # 파일 저장 확인용 로그 출력
+    # 파일 저장 확인 로그 출력
     st.write("📂 저장할 데이터프레임:", df)
 
     # CSV 파일로 저장
