@@ -69,21 +69,23 @@ def main():
 
         st.write(f"### 🩺 진단 결과: {max_label} ({max_confidence}%)")
 
-        # 검사 결과 저장 버튼 생성
-        if st.button("검사 결과를 저장하시겠습니까?"):
-            with st.form("user_input_form"):
-                user_id = st.text_input("User ID", "")
-                gender = st.radio("성별", ["남", "여"])
-                age = st.number_input("나이", min_value=1, max_value=100, step=1)
-                test_date = st.text_input("검사일자", datetime.today().strftime('%Y-%m-%d'), disabled=True)
-                user_notes = st.text_area("사용자 입력 추가 정보 (선택)")
-                submit_button = st.form_submit_button("저장")
+        # 검사 결과 저장 폼을 항상 표시
+        with st.form("user_input_form"):
+            user_id = st.text_input("User ID", "")
+            gender = st.radio("성별", ["남", "여"])
+            age = st.number_input("나이", min_value=1, max_value=100, step=1)
+            test_date = st.text_input("검사일자", datetime.today().strftime('%Y-%m-%d'), disabled=True)
+            user_notes = st.text_area("사용자 입력 추가 정보 (선택)")
+            
+            # 폼 제출 버튼
+            submit_button = st.form_submit_button("저장")
 
-                if submit_button:
-                    st.write("✅ 저장 버튼이 클릭되었습니다!")  # 버튼이 눌렸는지 확인
-                    save_to_history(user_id, gender, age, test_date, max_label, user_notes)
-                    st.success("✅ 검사 결과가 저장되었습니다!")
-                    st.experimental_rerun()
+            if submit_button:
+                st.write("✅ 저장 버튼이 클릭되었습니다!")  # 버튼 클릭 확인
+                save_to_history(user_id, gender, age, test_date, max_label, user_notes)
+                st.success("✅ 검사 결과가 저장되었습니다!")
+                st.experimental_rerun()
+
 
 
 if __name__ == "__main__":
