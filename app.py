@@ -7,10 +7,10 @@ def main():
 
     # 사이드바
     with st.sidebar:
-        st.image("images/sidebar_bg.png", caption="병원 데스크", width=300)
+        st.image("images/sidebar_bg.png", caption="서울탈모병원원", width=300)
         st.markdown("**병원 연락처:**")
         st.markdown("전화: 02-123-4567")
-        st.markdown("[병원 블로그 바로가기](https://example.com)")
+        st.markdown("[병원 블로그 바로가기](https://https://boohoday.com/)")
 
     # 메인화면 상단
     st.title("서울 탈모병원")
@@ -39,7 +39,9 @@ def main():
         st.button("지난 검사 결과 보기", on_click=lambda: st.experimental_rerun())
     
     with col2:
-        st.image("images/diagnosis_example.png", caption="탈모 진단 예시", width=450)
+        st.image("images/diagnosis_example.png", caption="M자 탈모모", width=450)
+        st.image("images/원형탈모.jpeg", caption="원형탈모", width=450)
+        st.image("images/반흔.jpeg", caption="반흔성탈모모", width=450)
 
 if __name__ == "__main__":
     main()
