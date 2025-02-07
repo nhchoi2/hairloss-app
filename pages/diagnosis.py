@@ -59,13 +59,13 @@ def main():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.image("images/sample1.jpg", caption="M자 탈모", width=250)
+        st.image("images/sample1.jpg", caption="M탈모.jpeg", width=250)
 
     with col2:
-        st.image("images/sample2.jpg", caption="정수리 탈모", width=250)
+        st.image("images/sample2.jpg", caption="반흔jpeg", width=250)
 
     with col3:
-        st.image("images/sample3.jpg", caption="원형 탈모", width=250)
+        st.image("images/sample3.jpg", caption="원형탈모jpeg", width=250)
 
     model = load_model("model/keras_model.h5")  # AI 모델 로드
 
