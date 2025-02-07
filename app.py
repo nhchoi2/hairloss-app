@@ -6,13 +6,13 @@ def main():
     st.set_page_config(page_title="서울 탈모병원", layout="wide")
     # 사이드바
     with st.sidebar:
-        st.image("images/hospital_logo.png", width=200)  # 병원 로고 추가
         st.image("images/sidebar_bg.png", caption="서울탈모병원원", width=300)
         st.markdown("**병원 연락처:**")
         st.markdown("전화: 02-123-4567")
         st.markdown("[병원 블로그 바로가기](https://https://boohoday.com/)")
 
     # 메인화면 상단
+    st.image("images/hospital_logo.png", width=200)  # 병원 로고 추가
     st.title("서울 탈모병원")
     st.subheader("AI 기반 탈모 진단 & 맞춤 관리 가이드")
 
