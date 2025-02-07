@@ -22,7 +22,7 @@ def main():
     fontRegistered()
     plt.rc('font', family='NanumBarunGothic')
     # 글꼴 추가 끝 ---------------
-    
+
     st.title("AI 탈모 진단")
     st.subheader(" 탈모사진 업로드 예시 ")
     col = st.columns(3)  # 3개의 컬럼 생성
@@ -62,15 +62,21 @@ def main():
         # 결과 표시
         st.write(f"### 🩺 진단 결과: {max_label} ({max_confidence}%)")
 
-        # 탈모 진행률 그래프 표시
-        fig, ax = plt.subplots()
-        ax.bar(labels, prediction_percent, color=["red", "orange", "green"])
-        ax.set_ylim(0, 100)  # 그래프 최대값 100%
-        ax.set_ylabel("진행률 (%)")
-        ax.set_title("탈모 진행률 분석")
-        
-        # Streamlit에서 그래프 출력
-        st.pyplot(fig)
+          # 검사 결과 저장 버튼 생성
+        if st.button("검사 결과를 저장하시겠습니까?"):
+            with st.form("user_input_form"):
+                user_id = st.text_input("User ID", "")
+                gender = st.radio("성별", ["남", "여"])
+                age = st.number_input("나이", min_value=1, max_value=100, step=1)
+                test_date = datetime.today().strftime('%Y-%m-%d')
+                user_notes = st.text_area("사용자 입력 추가 정보 (선택)")
+                submit_button = st.form_submit_button("저장")
+                
+                if submit_button:
+                    save_to_history(user_id, gender, age, test_date, max_label, user_notes)
+                    st.success("검사 결과가 저장되었습니다!")
+                    st.experimental_rerun()
+
 
 if __name__ == "__main__":
     main()

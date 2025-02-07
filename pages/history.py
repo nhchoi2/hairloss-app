@@ -8,7 +8,7 @@ def load_history():
         df = pd.read_csv("data/hair_loss_records.csv")
         return df
     except FileNotFoundError:
-        return pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과"])
+        return pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
 
 def display_history():
     """진단 기록을 테이블로 표시"""
