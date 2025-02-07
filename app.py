@@ -11,19 +11,16 @@ def main():
         st.markdown("전화: 02-123-4567")
         st.markdown("[병원 블로그 바로가기](https://https://boohoday.com/)")
 
-    # 로고, 병원명, 설명을 한 줄로 정렬
-    col1, col2, col3 = st.columns([1, 5, 6])  # 로고(1) | 병원명(5) | 설명(6)
+    # 로고와 병원명을 한 줄로 정렬
+    col_logo, col_title = st.columns([1, 5])  # 로고 1, 타이틀 5 비율
 
-    with col1:
-        st.image("images/hospital_logo.png", width=60)  # 로고 크기 조정 가능
+    with col_logo:
+        st.image("images/hospital_logo.png", width=50)  # 병원 로고 (크기 조정 가능)
 
-    with col2:
-        st.title("서울 탈모병원")  # 병원명
+    with col_title:
+        st.markdown("<h1 style='display: flex; align-items: center;'>서울 탈모병원</h1>", unsafe_allow_html=True)
 
-    with col3:
-        st.subheader("AI 기반 탈모 진단 & 맞춤 관리 가이드")  # 설명 문구
-
-
+    st.subheader("AI 기반 탈모 진단 & 맞춤 관리 가이드")
 
 
     # 메인화면 구성
