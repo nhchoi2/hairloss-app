@@ -65,7 +65,7 @@ def main():
         st.image("images/반흔.jpeg", caption="정수리 탈모", width=250)
 
     with col3:
-        st.image("images/원형탈모증.jpeg", caption="원형 탈모", width=250)
+        st.image("images/원형탈모.jpeg", caption="원형 탈모", width=250)
 
     model = load_model("model/keras_model.h5")  # AI 모델 로드
 
