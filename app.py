@@ -35,13 +35,13 @@ def main():
     col = st.columns(3)  # 3개의 컬럼 생성
 
     with col[0]:  # 첫 번째 컬럼
-        st.image("images/diagnosis_example.png", caption="M자 탈모", width=250)
+        st.image("images/diagnosis_example.png", caption="M자 탈모", use_container_width=True)
 
     with col[1]:  # 두 번째 컬럼
-        st.image("images/원형탈모.jpeg", caption="원형탈모", width=250)
+        st.image("images/원형탈모.jpeg", caption="원형탈모", use_container_width=True)
 
     with col[2]:  # 세 번째 컬럼
-        st.image("images/반흔.jpeg", caption="반흔성 탈모", width=250)
+        st.image("images/반흔.jpeg", caption="반흔성 탈모", use_container_width=True)
 
 
 
