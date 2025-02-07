@@ -1,70 +1,47 @@
 import streamlit as st
+import time  # ⬅ 새로 추가
 import pandas as pd
-import matplotlib.pyplot as plt
-import os
+from datetime import datetime
 
-
-def load_history():
-    """진단 기록을 CSV에서 불러오기"""
+def save_to_history(user_id, gender, age, test_date, diagnosis, user_notes):
+    """입력된 데이터를 CSV 파일에 저장"""
     file_path = "data/hair_loss_records.csv"
-
-    # 파일이 없거나 비어 있으면 새로 생성
-    if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
-        st.warning("⚠ CSV 파일이 없거나 비어 있습니다. 새로 생성합니다.")
-        df = pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
-        df.to_csv(file_path, index=False)
-        return df
-
+    if not os.path.exists("data"):
+        os.makedirs("data")
+    
     try:
         df = pd.read_csv(file_path)
-        return df
-    except pd.errors.EmptyDataError:
-        st.error("⚠ CSV 파일이 비어 있습니다. 새로 생성합니다.")
+    except (FileNotFoundError, pd.errors.EmptyDataError):
         df = pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
-        df.to_csv(file_path, index=False)
-        return df
-
-def display_history():
-    """진단 기록을 테이블로 표시"""
-    df = load_history()
-
-    # CSV 파일 데이터 확인 로그
-    st.write("📂 불러온 데이터프레임:", df)
-
-    if df.empty:
-        st.warning("아직 저장된 기록이 없습니다.")
-    else:
-        st.subheader("📜 지난 검사 기록")
-        st.dataframe(df.style.set_properties(**{'text-align': 'center'}))
-
-def plot_progress():
-    """탈모 진행률 변화를 그래프로 표시"""
-    df = load_history()
-    if df.empty:
-        return
     
-    df["검사일자"] = pd.to_datetime(df["검사일자"])
-    df = df.sort_values("검사일자")
-    
-    type_mapping = {"M자 탈모": 2, "탈모": 1, "정상": 0}
-    df["진단결과수치"] = df["검사결과"].map(type_mapping)
-    
-    fig, ax = plt.subplots()
-    ax.plot(df["검사일자"], df["진단결과수치"], marker='o', linestyle='-', color='red')
-    ax.set_yticks([0, 1, 2])
-    ax.set_yticklabels(["정상", "탈모", "M자 탈모"])
-    ax.set_xlabel("검사일자")
-    ax.set_ylabel("진단 결과")
-    ax.set_title("탈모 진행률 변화")
-    st.pyplot(fig)
+    new_data = pd.DataFrame([[user_id, gender, age, test_date, diagnosis, user_notes]],
+                            columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
+    df = pd.concat([df, new_data], ignore_index=True)
+    df.to_csv(file_path, index=False)
 
 def main():
-    st.title("📊 탈모 검사 기록")
-    display_history()
-    
-    if not load_history().empty:
-        st.subheader("📈 탈모 진행률 변화")
-        plot_progress()
+    st.title("AI 탈모 진단")
+
+    with st.form("user_input_form"):
+        user_id = st.text_input("User ID", "")
+        gender = st.radio("성별", ["남", "여"])
+        age = st.number_input("나이", min_value=1, max_value=100, step=1)
+        test_date = st.text_input("검사일자", datetime.today().strftime('%Y-%m-%d'), disabled=True)
+        user_notes = st.text_area("사용자 입력 추가 정보 (선택)")
+        submit_button = st.form_submit_button("저장")
+
+        if submit_button:
+            st.write("✅ 저장 버튼이 클릭되었습니다!")
+            save_to_history(user_id, gender, age, test_date, "AI 진단 결과", user_notes)
+            st.success("✅ 검사 결과가 저장되었습니다!")
+            
+            # 🔹 테이블 표시 (잠시 보여주고 히스토리 페이지로 이동)
+            st.write("📂 저장된 데이터 확인:")
+            df = pd.read_csv("data/hair_loss_records.csv")
+            st.dataframe(df)
+            
+            time.sleep(2)  # ⬅ 2초 동안 테이블을 표시한 후 히스토리 페이지로 이동
+            st.switch_page("history.py")  # ✅ 히스토리 페이지로 이동
 
 if __name__ == "__main__":
     main()
