@@ -1,14 +1,28 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+
 
 def load_history():
     """진단 기록을 CSV에서 불러오기"""
-    try:
-        df = pd.read_csv("data/hair_loss_records.csv")
+    file_path = "data/hair_loss_records.csv"
+
+    # 파일이 없거나 비어 있으면 새로 생성
+    if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
+        st.warning("⚠ CSV 파일이 없거나 비어 있습니다. 새로 생성합니다.")
+        df = pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
+        df.to_csv(file_path, index=False)
         return df
-    except FileNotFoundError:
-        return pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
+
+    try:
+        df = pd.read_csv(file_path)
+        return df
+    except pd.errors.EmptyDataError:
+        st.error("⚠ CSV 파일이 비어 있습니다. 새로 생성합니다.")
+        df = pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
+        df.to_csv(file_path, index=False)
+        return df
 
 def display_history():
     """진단 기록을 테이블로 표시"""
