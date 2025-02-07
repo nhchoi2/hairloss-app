@@ -18,7 +18,7 @@ def main():
         st.image("images/hospital_logo.png", width=50)  # 병원 로고 (크기 조정 가능)
 
     with col_title:
-        st.markdown("<h1 style='display: flex; align-items: center;'>서울 탈모병원</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 style='display: flex; align-items: center;'>슬기로운 탈모병원</h1>", unsafe_allow_html=True)
 
     st.subheader("AI 기반 탈모 진단 & 맞춤 관리 가이드")
 
