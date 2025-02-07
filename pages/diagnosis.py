@@ -51,9 +51,25 @@ def save_to_history(user_id, gender, age, test_date, diagnosis, user_notes):
 
 def main():
     st.title("AI 탈모 진단")
+    # AI 탈모 진단 제목 아래에 3개의 이미지를 가로로 나열 (상단에 설명 추가)
+    st.markdown("---")
+    st.markdown("### 🔍 사진 업로드 예시")
+    st.markdown("아래 이미지는 다양한 탈모 유형을 보여줍니다. AI 진단을 통해 정확한 탈모 상태를 확인하세요.")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.image("images/sample1.jpg", caption="M자 탈모", width=250)
+
+    with col2:
+        st.image("images/sample2.jpg", caption="정수리 탈모", width=250)
+
+    with col3:
+        st.image("images/sample3.jpg", caption="원형 탈모", width=250)
+
     model = load_model("model/keras_model.h5")  # AI 모델 로드
 
-    file = st.file_uploader("사진을 업로드해주세요", type=["jpg", "png", "jpeg"])
+    file = st.file_uploader("사진을 업로드해주세요, 업로드하신 사진은 저장되지 않습니다", type=["jpg", "png", "jpeg"])
     
     if file is not None:
         image = Image.open(file)
