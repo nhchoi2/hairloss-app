@@ -5,6 +5,11 @@ import matplotlib.pyplot as plt
 from keras.models import load_model
 from PIL import Image, ImageOps
 from datetime import datetime
+import os
+
+# 데이터 폴더가 없으면 생성
+os.makedirs("data", exist_ok=True)
+
 
 def save_to_history(user_id, gender, age, test_date, diagnosis, user_notes):
     """입력된 데이터를 CSV 파일에 저장"""
@@ -14,7 +19,9 @@ def save_to_history(user_id, gender, age, test_date, diagnosis, user_notes):
     st.write("✅ 저장할 데이터:", user_id, gender, age, test_date, diagnosis, user_notes)
 
     try:
-        df = pd.read_csv(file_path)
+        st.write("파일 저장 시작")
+        df.to_csv(file_path, index=False)
+        st.write("파일 저장 완료")
     except FileNotFoundError:
         df = pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
     
