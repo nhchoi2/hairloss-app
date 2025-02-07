@@ -68,7 +68,7 @@ def main():
                 user_id = st.text_input("User ID", "")
                 gender = st.radio("성별", ["남", "여"])
                 age = st.number_input("나이", min_value=1, max_value=100, step=1)
-                test_date = datetime.today().strftime('%Y-%m-%d')
+                test_date = st.text_input("검사일자", datetime.today().strftime('%Y-%m-%d'), disabled=True)
                 user_notes = st.text_area("사용자 입력 추가 정보 (선택)")
                 submit_button = st.form_submit_button("저장")
                 
@@ -76,7 +76,6 @@ def main():
                     save_to_history(user_id, gender, age, test_date, max_label, user_notes)
                     st.success("검사 결과가 저장되었습니다!")
                     st.experimental_rerun()
-
 
 if __name__ == "__main__":
     main()
