@@ -54,5 +54,9 @@ def main():
         st.subheader("🔍 최근 검사 기록")
         st.table(latest_data[["test_date", "max_label", "user_notes"]])
 
+         # 탈모 진행률 차트 추가
+        st.subheader("📈 탈모 진행률 변화")
+        plot_progress(filtered_df)
+
 if __name__ == "__main__":
     main()
