@@ -39,9 +39,16 @@ def main():
         st.button("지난 검사 결과 보기", on_click=lambda: st.experimental_rerun())
     
     with col2:
-        st.image("images/diagnosis_example.png", caption="M자 탈모모", width=450)
-        st.image("images/원형탈모.jpeg", caption="원형탈모", width=450)
-        st.image("images/반흔.jpeg", caption="반흔성탈모모", width=450)
+         col_img1, col_img2, col_img3 = st.columns(3)  # 3개의 컬럼 생성
+    
+    with col_img1:
+        st.image("images/diagnosis_example.png", caption="M자 탈모", width=250)
+    
+    with col_img2:
+        st.image("images/원형탈모.jpeg", caption="원형탈모", width=250)
+    
+    with col_img3:
+        st.image("images/반흔.jpeg", caption="반흔성 탈모", width=250)
 
 if __name__ == "__main__":
     main()
