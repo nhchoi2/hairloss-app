@@ -3,7 +3,7 @@ from PIL import Image
 
 def main():
     # App 설정
-    st.set_page_config(page_title="서울 탈모병원", layout="wide")
+    st.set_page_config(page_title="슬기로운 탈모병원", layout="wide")
     # 사이드바
     with st.sidebar:
         st.image("images/sidebar_bg.png", caption="슬기로운 탈모병원", width=300)
