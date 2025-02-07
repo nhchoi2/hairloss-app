@@ -12,7 +12,7 @@ def main():
         st.markdown("[병원 블로그 바로가기](https://https://boohoday.com/)")
 
     # 로고와 병원명을 한 줄로 정렬
-    col_logo, col_title = st.columns([1, 5])  # 로고 1, 타이틀 5 비율
+    col_logo, col_title = st.columns([5, 1])  # 로고 1, 타이틀 5 비율
 
     with col_logo:
         st.image("images/hospital_logo.png", width=50)  # 병원 로고 (크기 조정 가능)
