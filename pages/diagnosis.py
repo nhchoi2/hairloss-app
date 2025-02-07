@@ -78,11 +78,13 @@ def main():
                 test_date = st.text_input("검사일자", datetime.today().strftime('%Y-%m-%d'), disabled=True)
                 user_notes = st.text_area("사용자 입력 추가 정보 (선택)")
                 submit_button = st.form_submit_button("저장")
-                
+
                 if submit_button:
+                    st.write("✅ 저장 버튼이 클릭되었습니다!")  # 버튼이 눌렸는지 확인
                     save_to_history(user_id, gender, age, test_date, max_label, user_notes)
-                    st.success("검사 결과가 저장되었습니다!")
+                    st.success("✅ 검사 결과가 저장되었습니다!")
                     st.experimental_rerun()
+
 
 if __name__ == "__main__":
     main()
