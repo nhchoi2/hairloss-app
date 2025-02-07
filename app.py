@@ -15,7 +15,7 @@ def main():
     col_logo, col_title = st.columns([1, 4])  # 로고 1, 타이틀 4 비율로 조정
 
     with col_logo:
-        st.image("images/hospital_logo.png", width=80)  # 병원 로고
+        st.image("images/hospital_logo.png", width=40)  # 병원 로고
 
     with col_title:
         st.title("서울 탈모병원")
