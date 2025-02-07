@@ -9,6 +9,10 @@ from datetime import datetime
 def save_to_history(user_id, gender, age, test_date, diagnosis, user_notes):
     """입력된 데이터를 CSV 파일에 저장"""
     file_path = "data/hair_loss_records.csv"
+    
+    # 현재 저장하려는 데이터 확인
+    st.write("✅ 저장할 데이터:", user_id, gender, age, test_date, diagnosis, user_notes)
+
     try:
         df = pd.read_csv(file_path)
     except FileNotFoundError:
@@ -16,8 +20,14 @@ def save_to_history(user_id, gender, age, test_date, diagnosis, user_notes):
     
     new_data = pd.DataFrame([[user_id, gender, age, test_date, diagnosis, user_notes]],
                             columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
+    
     df = pd.concat([df, new_data], ignore_index=True)
+    
+    # 저장 확인을 위해 출력
+    st.write("📂 데이터프레임 확인:", df)
+    
     df.to_csv(file_path, index=False)
+    st.success("✅ 검사 결과가 CSV 파일에 저장되었습니다!")
 
 def main():
     st.title("AI 탈모 진단")
