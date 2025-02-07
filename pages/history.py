@@ -54,7 +54,11 @@ def main():
         st.subheader("🔍 최근 검사 기록")
         st.table(latest_data[["test_date", "max_label", "user_notes"]])
 
-         # 탈모 진행률 차트 추가
+         # test_date를 datetime 형식으로 변환 후 정렬
+        filtered_df["test_date"] = pd.to_datetime(filtered_df["test_date"], errors="coerce")
+        filtered_df = filtered_df.sort_values("test_date")
+
+        # 탈모 진행률 차트 추가
         st.subheader("📈 탈모 진행률 변화")
         plot_progress(filtered_df)
 
