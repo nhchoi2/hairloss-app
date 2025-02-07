@@ -62,7 +62,7 @@ def main():
         st.image("images/M탈모.jpeg", caption="M자 탈모", width=250)
 
     with col2:
-        st.image("images/반흔흔.jpeg", caption="정수리 탈모", width=250)
+        st.image("images/반흔.jpeg", caption="정수리 탈모", width=250)
 
     with col3:
         st.image("images/원형탈모.jpeg", caption="원형 탈모", width=250)
