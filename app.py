@@ -32,19 +32,17 @@ def main():
 
     # 메인화면 구성
     st.markdown("---")
-    col2 = st.columns([1, 3])  # 첫 번째 컬럼(작음), 두 번째 컬럼(큼)
+    col = st.columns(3)  # 3개의 컬럼 생성
 
-    with col2:  # 두 번째 컬럼에 이미지 가로 배치
-        col_img1, col_img2, col_img3 = st.columns(3)  # 3개의 내부 컬럼 생성
+    with col[0]:  # 첫 번째 컬럼
+        st.image("images/diagnosis_example.png", caption="M자 탈모", width=250)
 
-        with col_img1:
-            st.image("images/diagnosis_example.png", caption="M자 탈모", width=250)
+    with col[1]:  # 두 번째 컬럼
+        st.image("images/원형탈모.jpeg", caption="원형탈모", width=250)
 
-        with col_img2:
-            st.image("images/원형탈모.jpeg", caption="원형탈모", width=250)
+    with col[2]:  # 세 번째 컬럼
+        st.image("images/반흔.jpeg", caption="반흔성 탈모", width=250)
 
-        with col_img3:
-            st.image("images/반흔.jpeg", caption="반흔성 탈모", width=250)
 
 
 if __name__ == "__main__":
