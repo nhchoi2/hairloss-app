@@ -54,13 +54,23 @@ def main():
         st.subheader("🔍 최근 검사 기록")
         st.table(latest_data[["test_date", "max_label", "user_notes"]])
 
-         # test_date를 datetime 형식으로 변환 후 정렬
-        filtered_df["test_date"] = pd.to_datetime(filtered_df["test_date"], errors="coerce")
+         # 날짜 변환 (문자열 -> datetime)
+        if "test_date" in filtered_df.columns:
+            filtered_df["test_date"] = pd.to_datetime(filtered_df["test_date"], errors="coerce")
+
+        # 진단 결과 변환 (문자열 -> 숫자)
+        diagnosis_mapping = {"정상": 0, "탈모": 1, "M자 탈모": 2}
+        if "max_label" in filtered_df.columns:
+            filtered_df["진단값"] = filtered_df["max_label"].map(diagnosis_mapping)
+
+        # 결측값 제거
+        filtered_df = filtered_df.dropna(subset=["test_date", "진단값"])
+
+        # 데이터 정렬
         filtered_df = filtered_df.sort_values("test_date")
 
-        # 탈모 진행률 차트 추가
-        st.subheader("📈 탈모 진행률 변화")
-        plot_progress(filtered_df)
+        # 데이터가 존재할 때만 차트
+
 
 if __name__ == "__main__":
     main()
