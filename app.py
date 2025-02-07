@@ -16,20 +16,6 @@ def main():
     st.title("서울 탈모병원")
     st.subheader("AI 기반 탈모 진단 & 맞춤 관리 가이드")
 
-    # 상단 링크 메뉴
-    st.markdown("---")
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        st.markdown("[병원소개 페이지](pages/introduction.py)")
-    with col2:
-        st.markdown("[오시는길](https://maps.google.com)")
-    with col3:
-        st.markdown("[탈모설명](pages/hair_loss_intro.py)")
-    with col4:
-        st.markdown("[탈모관리법](pages/info.py)")
-    with col5:
-        st.markdown("[탈모진단테스트](pages/diagnosis.py)")
-
     # 메인화면 구성
     st.markdown("---")
     col = st.columns(3)  # 3개의 컬럼 생성
