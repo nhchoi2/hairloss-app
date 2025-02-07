@@ -4,18 +4,18 @@ from PIL import Image, ImageOps
 import numpy as np
 
 def main():
-    st.markdown("---")
-    col = st.columns(3)  # 3개의 컬럼 생성
     st.subheader(" 탈모사진 업로드 예시 ")
+    col = st.columns(3)  # 3개의 컬럼 생성
+    
     with col[0]:  # 첫 번째 컬럼
-        st.image("images/diagnosis_example.png", caption="M자 탈모", use_container_width=True)
+        st.image("images/diagnosis_example.png", caption="M자 탈모", width=250)
 
     with col[1]:  # 두 번째 컬럼
-        st.image("images/원형탈모.jpeg", caption="원형탈모", use_container_width=True)
+        st.image("images/원형탈모.jpeg", caption="원형탈모", width=250)
 
     with col[2]:  # 세 번째 컬럼
-        st.image("images/반흔.jpeg", caption="반흔성 탈모", use_container_width=True)
-
+        st.image("images/반흔.jpeg", caption="반흔성 탈모", width=250)
+    st.markdown("---")
     st.title("AI 탈모 진단")
     model = load_model("model/keras_model.h5")
     
