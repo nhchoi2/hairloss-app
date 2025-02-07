@@ -32,7 +32,7 @@ def main():
 
     # 메인화면 구성
     st.markdown("---")
-    col1, col2 = st.columns([1, 3])  # 첫 번째 컬럼(작음), 두 번째 컬럼(큼)
+    col1, col2 = st.columns([1, 2])  # 첫 번째 컬럼(작음), 두 번째 컬럼(큼)
 
     with col2:  # 두 번째 컬럼에 이미지 가로 배치
         col_img1, col_img2, col_img3 = st.columns(3)  # 3개의 내부 컬럼 생성
