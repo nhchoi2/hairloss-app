@@ -1,1 +1,1 @@
-User ID,성별,나이,검사일자,AI 진단 결과,사용자 입력 추가 정보
+user_id, gender, age, test_date, max_label, user_notes
