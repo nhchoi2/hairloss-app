@@ -1,7 +1,8 @@
 import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
 from keras.models import load_model
 from PIL import Image, ImageOps
-import numpy as np
 
 def main():
     st.title("AI 탈모 진단")
@@ -41,7 +42,17 @@ def main():
         max_confidence = prediction_percent[max_index]  # 해당 라벨의 확률
 
         # 결과 표시
-        st.write(f"진단 결과: {max_label} ({max_confidence}%)")
+        st.write(f"### 🩺 진단 결과: {max_label} ({max_confidence}%)")
+
+        # 탈모 진행률 그래프 표시
+        fig, ax = plt.subplots()
+        ax.bar(labels, prediction_percent, color=["red", "orange", "green"])
+        ax.set_ylim(0, 100)  # 그래프 최대값 100%
+        ax.set_ylabel("진행률 (%)")
+        ax.set_title("탈모 진행률 분석")
+        
+        # Streamlit에서 그래프 출력
+        st.pyplot(fig)
         
 if __name__ == "__main__":
     main()
