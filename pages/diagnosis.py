@@ -30,8 +30,11 @@ def main():
         img_array = np.asarray(image) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
         
-        prediction = model.predict(img_array)
-        st.write(f"진단 결과: {prediction}")
+        prediction = model.predict(img_array)[0]  # 예측 결과 배열 가져오기
+        prediction_percent = (prediction * 100).astype(int)  # 확률 값을 정수(%)로 변환
+        
+        # 결과 표시
+        st.write(f"진단 결과: {prediction_percent.tolist()} %")
         
 if __name__ == "__main__":
     main()
