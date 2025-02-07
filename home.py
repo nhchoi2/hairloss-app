@@ -21,7 +21,7 @@ def main():
         st.markdown("<h1 style='display: flex; align-items: center;'>슬기로운 탈모병원</h1>", unsafe_allow_html=True)
 
     st.subheader("AI 기반 탈모 진단 & 맞춤 관리 가이드")
-
+    st.image("images/병원외관.jpg", caption="슬기로운 탈모병원", width=300)
 
     # 메인화면 구성
     st.markdown("---")
