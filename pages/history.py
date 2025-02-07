@@ -17,7 +17,14 @@ def display_history():
         st.warning("아직 저장된 기록이 없습니다.")
     else:
         st.subheader("📜 지난 검사 기록")
-        st.dataframe(df)
+        st.dataframe(df.style.set_properties(**{'text-align': 'center'}))
+        
+        # 선택한 사용자 기록 필터링
+        user_ids = df["User ID"].unique()
+        selected_user = st.selectbox("조회할 사용자 ID 선택", user_ids)
+        filtered_df = df[df["User ID"] == selected_user]
+        st.write("### 선택한 사용자 기록")
+        st.dataframe(filtered_df.style.set_properties(**{'text-align': 'center'}))
 
 def plot_progress():
     """탈모 진행률 변화를 그래프로 표시"""
