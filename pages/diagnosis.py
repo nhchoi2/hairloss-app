@@ -4,7 +4,25 @@ import matplotlib.pyplot as plt
 from keras.models import load_model
 from PIL import Image, ImageOps
 
+# 글꼴 설치 os 시작 ---------------
+import os
+import matplotlib.font_manager as fm
+
+@st.cache_data
+def fontRegistered():
+    font_dirs = [os.getcwd() + '/custom_fonts']
+    font_files = fm.findSystemFonts(fontpaths=font_dirs)
+    for font_file in font_files:
+        fm.fontManager.addfont(font_file)
+    fm._load_fontmanager(try_read_cache=False)
+# 글꼴 설치 os 끝 ---------------
+
 def main():
+    # 글꼴 추가 시작 ---------------
+    fontRegistered()
+    plt.rc('font', family='NanumBarunGothic')
+    # 글꼴 추가 끝 ---------------
+    
     st.title("AI 탈모 진단")
     st.subheader(" 탈모사진 업로드 예시 ")
     col = st.columns(3)  # 3개의 컬럼 생성
@@ -53,6 +71,6 @@ def main():
         
         # Streamlit에서 그래프 출력
         st.pyplot(fig)
-        
+
 if __name__ == "__main__":
     main()
