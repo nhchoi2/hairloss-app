@@ -6,62 +6,54 @@ def load_history():
     """진단 기록을 CSV에서 불러오기"""
     file_path = "data/hair_loss_records.csv"
 
-    # 파일이 없거나 비어 있으면 새로 생성
+    # 파일이 없으면 빈 데이터프레임 생성
     if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
-        st.warning("⚠ CSV 파일이 없거나 비어 있습니다. 새로 생성합니다.")
+        st.warning("⚠ CSV 파일이 없거나 비어 있습니다.")
         df = pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
         df.to_csv(file_path, index=False)
         return df
-
-    try:
-        df = pd.read_csv(file_path)
-        return df
-    except pd.errors.EmptyDataError:
-        st.error("⚠ CSV 파일이 비어 있습니다. 새로 생성합니다.")
-        df = pd.DataFrame(columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
-        df.to_csv(file_path, index=False)
-        return df
-
-def save_user_info(user_id, gender, age):
-    """새로운 유저 정보를 기록"""
-    file_path = "data/hair_loss_records.csv"
-    df = load_history()
-
-    # 기존 데이터에서 유저 ID가 존재하는지 확인
-    if user_id in df["User ID"].values:
-        st.warning("⚠ 이미 존재하는 User ID입니다. 다른 ID를 입력하세요.")
-        return
     
-    new_data = pd.DataFrame([[user_id, gender, age, "-", "-", "-"]],
-                            columns=["User ID", "성별", "나이", "검사일자", "검사결과", "사용자 입력 추가 정보"])
-    df = pd.concat([df, new_data], ignore_index=True)
-    df.to_csv(file_path, index=False)
-    st.success("✅ 유저 정보가 저장되었습니다!")
-
-def display_history():
-    """진단 기록을 테이블로 표시"""
-    df = load_history()
-    if df.empty:
-        st.warning("아직 저장된 기록이 없습니다.")
-    else:
-        st.subheader("📜 지난 검사 기록")
-        st.dataframe(df)
+    return pd.read_csv(file_path)
 
 def main():
-    st.title("📊 탈모 검사 기록")
+    st.title("📊 탈모 검사 내역 확인")
+    st.subheader("👤 이름과 성별, 나이를 선택해 주세요")
     
-    # 유저 정보 입력 폼
-    with st.form("user_info_form"):
-        user_id = st.text_input("User ID", "")
-        gender = st.radio("성별", ["남", "여"])
-        age = st.number_input("나이", min_value=1, max_value=100, step=1)
-        submit_button = st.form_submit_button("유저 정보 저장")
-        
-        if submit_button:
-            save_user_info(user_id, gender, age)
-            st.experimental_rerun()
-
-    display_history()
+    df = load_history()
+    
+    if df.empty:
+        st.warning("아직 저장된 검사 내역이 없습니다.")
+        return
+    
+    # 유저 ID, 성별, 나이 선택 필터
+    user_id = st.selectbox("User ID 선택", df["User ID"].unique())
+    gender = st.radio("성별 선택", df[df["User ID"] == user_id]["성별"].unique())
+    age = st.selectbox("나이 선택", df[df["User ID"] == user_id]["나이"].unique())
+    
+    # 조건에 맞는 데이터 10개만 불러오기
+    filtered_df = df[(df["User ID"] == user_id) & (df["성별"] == gender) & (df["나이"] == age)]
+    filtered_df = filtered_df.tail(10)  # 최대 10개만 가져오기
+    
+    if filtered_df.empty:
+        st.warning("해당 조건에 맞는 데이터가 없습니다.")
+        return
+    
+    # 인덱스 클릭을 위한 컬럼 추가
+    filtered_df = filtered_df.reset_index()
+    filtered_df["보기"] = [f"표로 보기" for _ in range(len(filtered_df))]
+    
+    # 데이터프레임 표시
+    selected_index = st.data_editor(
+        filtered_df[["검사일자", "검사결과", "사용자 입력 추가 정보", "보기"]],
+        column_config={"보기": st.column_config.ButtonColumn("보기")},
+        hide_index=True
+    )
+    
+    # 선택된 인덱스의 데이터 표시
+    if selected_index is not None:
+        st.subheader("🔍 선택한 검사 기록")
+        selected_data = filtered_df.iloc[selected_index]
+        st.table(selected_data[["검사일자", "검사결과", "사용자 입력 추가 정보"]])
 
 if __name__ == "__main__":
     main()
