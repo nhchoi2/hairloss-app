@@ -21,10 +21,6 @@ def main():
     
     df = load_history()
     
-    if df.empty:
-        st.warning("아직 저장된 검사 내역이 없습니다.")
-        return
-    
     # 유저 정보 입력 필터
     user_id = st.text_input("이름을 입력하세요")
     gender = st.radio("성별 선택", ["남", "여"])
